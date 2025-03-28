@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { reminders } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BellRing, Clock, Calendar, Plus, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const ReminderList = () => {
   const [userReminders, setUserReminders] = useState(reminders);
