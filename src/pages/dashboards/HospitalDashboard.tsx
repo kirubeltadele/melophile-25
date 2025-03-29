@@ -20,6 +20,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 // Mock data
 const bloodInventory = [
@@ -58,6 +59,8 @@ const staffMembers = [
 ];
 
 const HospitalDashboard = () => {
+  const navigate = useNavigate();
+  
   const getStatusClass = (status: string) => {
     switch (status) {
       case "Normal":
@@ -125,7 +128,12 @@ const HospitalDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">3</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-red-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-red-600"
+                onClick={() => navigate('/blood-inventory')}
+              >
                 Alert
               </Button>
             </div>
