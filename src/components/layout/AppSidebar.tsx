@@ -11,8 +11,6 @@ import {
   Bell, 
   Calendar, 
   MessageCircle, 
-  Clock, 
-  BarChart, 
   Settings, 
   Video,
   ShoppingBag,
@@ -23,7 +21,11 @@ import {
   User,
   Hospital,
   Droplets,
-  Stethoscope
+  Stethoscope,
+  BarChart,
+  ShoppingCart,
+  FileText,
+  Edit
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -69,32 +71,34 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
         ...commonItems,
         { icon: Pill, label: "My Medications", to: "/medications" },
         { icon: Search, label: "Find Medicine", to: "/search" },
-        { icon: Heart, label: "Health Tips", to: "/health-tips" },
         { icon: Bell, label: "Reminders", to: "/reminders" },
+        { icon: Heart, label: "Health Tips", to: "/health-tips" },
         { icon: MessageCircle, label: "Health Chat", to: "/chat" },
-        { icon: Clock, label: "History", to: "/history" },
+        { icon: Video, label: "Telemedicine", to: "/telemedicine" },
       ];
     } else if (user?.role === "pharmacy") {
       return [
         ...commonItems,
         { icon: ShoppingBag, label: "Inventory", to: "/inventory" },
-        { icon: UserCheck, label: "Prescriptions", to: "/prescriptions" },
+        { icon: ShoppingCart, label: "Orders", to: "/orders" },
         { icon: BarChart, label: "Analytics", to: "/analytics" },
+        { icon: FileText, label: "About Pharmacy", to: "/about" },
+        { icon: Edit, label: "Write Blog", to: "/write-blog" },
       ];
     } else if (user?.role === "hospital") {
       return [
         ...commonItems,
-        { icon: Users, label: "Staff Members", to: "/staff" },
-        { icon: Users, label: "Patients", to: "/patients" },
         { icon: Hospital, label: "About Hospital", to: "/about" },
         { icon: Droplets, label: "Blood Inventory", to: "/blood-inventory" },
+        { icon: Edit, label: "Write Blog", to: "/write-blog" },
       ];
     } else if (user?.role === "consultant") {
       return [
         ...commonItems,
-        { icon: Users, label: "Patients", to: "/patients" },
         { icon: Calendar, label: "Appointments", to: "/appointments" },
         { icon: User, label: "About Me", to: "/about" },
+        { icon: Users, label: "Patients", to: "/patients" },
+        { icon: Edit, label: "Write Blog", to: "/write-blog" },
       ];
     }
 

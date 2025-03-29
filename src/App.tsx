@@ -19,7 +19,14 @@ import Notifications from "./pages/Notifications";
 import MyMedications from "./pages/MyMedications";
 import HealthChat from "./pages/HealthChat";
 import Inventory from "./pages/Inventory";
-import AboutConsultant from "./pages/AboutConsultant";
+import About from "./pages/About";
+import Telemedicine from "./pages/Telemedicine";
+import WriteBlog from "./pages/WriteBlog";
+import Analytics from "./pages/Analytics";
+import Orders from "./pages/Orders";
+import BloodInventory from "./pages/BloodInventory";
+import Appointments from "./pages/Appointments";
+import Patients from "./pages/Patients";
 import melophileLogo from "/melophile-logo.png";
 import melophileIcon from "/melophile-icon.ico";
 
@@ -47,8 +54,15 @@ const App = () => (
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/medications" element={<MyMedications />} />
               <Route path="/chat" element={<HealthChat />} />
+              <Route path="/telemedicine" element={<Telemedicine />} />
               <Route path="/inventory" element={<Inventory />} />
-              <Route path="/about" element={<AboutConsultant />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/write-blog" element={<WriteBlog />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/blood-inventory" element={<BloodInventory />} />
+              <Route path="/appointments" element={<Appointments />} />
+              <Route path="/patients" element={<Patients />} />
             </Route>
             
             <Route path="*" element={<NotFound />} />
