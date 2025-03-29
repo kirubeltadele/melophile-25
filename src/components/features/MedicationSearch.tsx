@@ -16,8 +16,8 @@ import MedicationCard from "./MedicationCard";
 
 const MedicationSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
-  const [stockFilter, setStockFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [stockFilter, setStockFilter] = useState("all");
 
   // Get unique categories for filter
   const categories = Array.from(new Set(medications.map(med => med.category)));
@@ -29,9 +29,9 @@ const MedicationSearch = () => {
       med.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       med.genericName.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesCategory = categoryFilter === "" || med.category === categoryFilter;
+    const matchesCategory = categoryFilter === "all" || med.category === categoryFilter;
     
-    const matchesStock = stockFilter === "" || 
+    const matchesStock = stockFilter === "all" || 
       (stockFilter === "available" && med.stockStatus === "available") ||
       (stockFilter === "low" && med.stockStatus === "low") ||
       (stockFilter === "unavailable" && med.stockStatus === "unavailable");
@@ -62,7 +62,7 @@ const MedicationSearch = () => {
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>{category}</SelectItem>
                 ))}
@@ -76,7 +76,7 @@ const MedicationSearch = () => {
                 <SelectValue placeholder="Availability" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Availability</SelectItem>
+                <SelectItem value="all">All Availability</SelectItem>
                 <SelectItem value="available">In Stock</SelectItem>
                 <SelectItem value="low">Low Stock</SelectItem>
                 <SelectItem value="unavailable">Out of Stock</SelectItem>
