@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,22 +30,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { medications } from "@/data/mockData";
+import { medications as initialMedications, Medication as ImportedMedication } from "@/data/mockData";
 
-interface Medication {
-  id: string;
-  name: string;
-  brandName: string;
-  genericName: string;
-  category: string;
+// Extended Medication interface with additional inventory-specific fields
+interface Medication extends ImportedMedication {
   stockQuantity: number;
-  stockStatus: "available" | "low" | "unavailable";
-  price: number;
   expiryDate?: string;
 }
 
 const Inventory = () => {
-  const [inventory, setInventory] = useState<Medication[]>(medications);
+  // Transform imported medications to match our interface
+  const transformedMedications: Medication[] = initialMedications.map(med => ({
+    ...med,
+    stockQuantity: Math.floor(Math.random() * 50) // Adding a random stock quantity for demo purposes
+  }));
+
+  const [inventory, setInventory] = useState<Medication[]>(transformedMedications);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
@@ -61,11 +60,12 @@ const Inventory = () => {
     stockQuantity: 0,
     stockStatus: "available",
     price: 0,
-    expiryDate: ""
+    expiryDate: "",
+    description: "",
+    sideEffects: [],
+    contraindications: [],
+    dosage: ""
   });
-  
-  // Get unique categories for filter
-  const categories = Array.from(new Set(medications.map(med => med.category)));
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -104,7 +104,9 @@ const Inventory = () => {
     const newMed: Medication = {
       ...newMedication,
       id: `med-${Date.now()}`,
-      stockStatus
+      stockStatus,
+      sideEffects: [], // Initialize with empty arrays for required fields
+      contraindications: []
     };
     
     setInventory([...inventory, newMed]);
@@ -119,10 +121,17 @@ const Inventory = () => {
       stockQuantity: 0,
       stockStatus: "available",
       price: 0,
-      expiryDate: ""
+      expiryDate: "",
+      description: "",
+      sideEffects: [],
+      contraindications: [],
+      dosage: ""
     });
     setIsAddDialogOpen(false);
   };
+  
+  // Get unique categories for filter
+  const categories = Array.from(new Set(initialMedications.map(med => med.category)));
   
   // Filter medications based on search query, category, and stock status
   const filteredMedications = inventory.filter(med => {
@@ -239,7 +248,7 @@ const Inventory = () => {
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent>
-                        {categories.map((category) => (
+                        {Array.from(new Set(initialMedications.map(med => med.category))).map((category) => (
                           <SelectItem key={category} value={category}>{category}</SelectItem>
                         ))}
                         <SelectItem value="Other">Other</SelectItem>
@@ -413,7 +422,7 @@ const Inventory = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map((category) => (
+                  {Array.from(new Set(initialMedications.map(med => med.category))).map((category) => (
                     <SelectItem key={category} value={category}>{category}</SelectItem>
                   ))}
                 </SelectContent>

@@ -19,8 +19,41 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+// Define medication types more explicitly to handle optional fields properly
+interface BaseMedication {
+  id: string;
+  name: string;
+  type: string;
+  schedule: string;
+  reminderTime: string | null;
+  notes: string;
+}
+
+interface ContinuousMedication extends BaseMedication {
+  type: "continuous";
+  refillPeriod: string;
+  nextRefillDate: string;
+  endDate?: never; // Not applicable for continuous medications
+}
+
+interface TemporaryMedication extends BaseMedication {
+  type: "temporary";
+  refillPeriod: string;
+  nextRefillDate?: never; // Not applicable
+  endDate: string;
+}
+
+interface AsNeededMedication extends BaseMedication {
+  type: "as-needed";
+  refillPeriod: string;
+  nextRefillDate?: never; // Not applicable
+  endDate?: never; // Not applicable
+}
+
+type Medication = ContinuousMedication | TemporaryMedication | AsNeededMedication;
+
 // Mock data
-const initialMedications = [
+const initialMedications: Medication[] = [
   {
     id: "med-001",
     name: "Metformin",
@@ -47,7 +80,6 @@ const initialMedications = [
     type: "as-needed",
     schedule: "As needed for pain",
     refillPeriod: "As needed",
-    nextRefillDate: null,
     reminderTime: null,
     notes: "Take with food if stomach upset occurs"
   },
@@ -64,10 +96,14 @@ const initialMedications = [
 ];
 
 const MyMedications = () => {
-  const [medications, setMedications] = useState(initialMedications);
+  const [medications, setMedications] = useState<Medication[]>(initialMedications);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [newMedication, setNewMedication] = useState({
-    id: "",
+  const [newMedication, setNewMedication] = useState<Omit<BaseMedication, "id"> & {
+    type: "continuous" | "temporary" | "as-needed";
+    refillPeriod: string;
+    nextRefillDate: string;
+    endDate: string;
+  }>({
     name: "",
     type: "continuous",
     schedule: "",
@@ -95,17 +131,48 @@ const MyMedications = () => {
   const handleAddMedication = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const newMed = {
-      ...newMedication,
-      id: `med-${Date.now()}`,
-    };
+    // Create a new medication based on its type
+    let newMed: Medication;
+    
+    if (newMedication.type === "continuous") {
+      newMed = {
+        id: `med-${Date.now()}`,
+        name: newMedication.name,
+        type: "continuous",
+        schedule: newMedication.schedule,
+        refillPeriod: newMedication.refillPeriod,
+        nextRefillDate: newMedication.nextRefillDate,
+        reminderTime: newMedication.reminderTime || null,
+        notes: newMedication.notes
+      };
+    } else if (newMedication.type === "temporary") {
+      newMed = {
+        id: `med-${Date.now()}`,
+        name: newMedication.name,
+        type: "temporary",
+        schedule: newMedication.schedule,
+        refillPeriod: newMedication.refillPeriod,
+        endDate: newMedication.endDate,
+        reminderTime: newMedication.reminderTime || null,
+        notes: newMedication.notes
+      };
+    } else { // as-needed
+      newMed = {
+        id: `med-${Date.now()}`,
+        name: newMedication.name,
+        type: "as-needed",
+        schedule: newMedication.schedule,
+        refillPeriod: newMedication.refillPeriod,
+        reminderTime: newMedication.reminderTime || null,
+        notes: newMedication.notes
+      };
+    }
     
     setMedications([...medications, newMed]);
     toast.success(`Added ${newMed.name} to your medications`);
     
     // Reset form and close dialog
     setNewMedication({
-      id: "",
       name: "",
       type: "continuous",
       schedule: "",
@@ -122,7 +189,10 @@ const MyMedications = () => {
     const medToDelete = medications.find(med => med.id === id);
     
     setMedications(medications.filter(med => med.id !== id));
-    toast.success(`Removed ${medToDelete?.name} from your medications`);
+    
+    if (medToDelete) {
+      toast.success(`Removed ${medToDelete.name} from your medications`);
+    }
   };
   
   const getTypeIcon = (type: string) => {
@@ -198,7 +268,7 @@ const MyMedications = () => {
                   <div className="col-span-3">
                     <RadioGroup
                       defaultValue="continuous"
-                      onValueChange={(value) => handleSelectChange("type", value)}
+                      onValueChange={(value) => handleSelectChange("type", value as "continuous" | "temporary" | "as-needed")}
                       className="flex flex-col space-y-1"
                     >
                       <div className="flex items-center space-x-2">
@@ -338,6 +408,13 @@ const MyMedications = () => {
             </CardHeader>
             <CardContent className="pb-3">
               <div className="space-y-2 text-sm">
+                {medication.type === "continuous" && medication.nextRefillDate && (
+                  <div className="flex items-center text-gray-600">
+                    <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span>Next Refill: {medication.nextRefillDate}</span>
+                  </div>
+                )}
+                
                 {medication.type === "continuous" && medication.refillPeriod && (
                   <div className="flex items-center text-gray-600">
                     <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
