@@ -113,7 +113,7 @@ const Telemedicine = () => {
                         <SelectValue placeholder="All Specialties" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Specialties</SelectItem>
+                        <SelectItem value="all">All Specialties</SelectItem>
                         <SelectItem value="Dietary Consultant">Dietary Consultant</SelectItem>
                         <SelectItem value="Mental Well-being">Mental Well-being</SelectItem>
                       </SelectContent>

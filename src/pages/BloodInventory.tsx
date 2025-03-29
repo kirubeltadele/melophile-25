@@ -259,7 +259,7 @@ const BloodInventory = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Status</SelectLabel>
-                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="all-statuses">All</SelectItem>
                 <SelectItem value="Normal">Normal</SelectItem>
                 <SelectItem value="Low">Low</SelectItem>
                 <SelectItem value="Critical">Critical</SelectItem>
