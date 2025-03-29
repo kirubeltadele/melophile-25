@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import { 
   ShoppingBag, 
   Users, 
@@ -21,6 +22,7 @@ import {
 import { medications } from "@/data/mockData";
 
 const PharmacyDashboard = () => {
+  const navigate = useNavigate();
   const lowStockItems = medications.filter(med => med.stockStatus === "low");
   const outOfStockItems = medications.filter(med => med.stockStatus === "unavailable");
   
@@ -65,7 +67,12 @@ const PharmacyDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{medications.length}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-melophile-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-melophile-600"
+                onClick={() => navigate('/inventory')}
+              >
                 View All
               </Button>
             </div>
@@ -84,7 +91,12 @@ const PharmacyDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{lowStockItems.length}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-yellow-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-yellow-600"
+                onClick={() => navigate('/inventory', { state: { filter: 'low' } })}
+              >
                 View All
               </Button>
             </div>
@@ -103,7 +115,12 @@ const PharmacyDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{outOfStockItems.length}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-red-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-red-600"
+                onClick={() => navigate('/inventory', { state: { filter: 'unavailable' } })}
+              >
                 Order
               </Button>
             </div>
@@ -122,7 +139,12 @@ const PharmacyDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">ETB 2,450</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-green-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-green-600"
+                onClick={() => navigate('/analytics')}
+              >
                 Details
               </Button>
             </div>
@@ -164,7 +186,7 @@ const PharmacyDashboard = () => {
               </TableBody>
             </Table>
             <div className="mt-4 flex justify-center">
-              <Button variant="outline">View All Orders</Button>
+              <Button variant="outline" onClick={() => navigate('/orders')}>View All Orders</Button>
             </div>
           </CardContent>
         </Card>
@@ -175,23 +197,39 @@ const PharmacyDashboard = () => {
             <CardDescription>Common pharmacy tasks</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button className="w-full bg-melophile-600 hover:bg-melophile-700 flex items-center justify-start">
+            <Button 
+              className="w-full bg-melophile-600 hover:bg-melophile-700 flex items-center justify-start"
+              onClick={() => navigate('/inventory')}
+            >
               <ShoppingBag className="mr-2 h-4 w-4" />
               Update Inventory
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+            >
               <ClipboardCheck className="mr-2 h-4 w-4" />
               Verify Prescription
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+              onClick={() => navigate('/notifications')}
+            >
               <Bell className="mr-2 h-4 w-4" />
               Send Notification
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+            >
               <Activity className="mr-2 h-4 w-4" />
               Emergency Alert
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+            >
               <Users className="mr-2 h-4 w-4" />
               Manage Staff
             </Button>
