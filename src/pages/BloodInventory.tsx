@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -260,7 +259,7 @@ const BloodInventory = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Status</SelectLabel>
-                <SelectItem value="">All</SelectItem>
+                <SelectItem value="all">All</SelectItem>
                 <SelectItem value="Normal">Normal</SelectItem>
                 <SelectItem value="Low">Low</SelectItem>
                 <SelectItem value="Critical">Critical</SelectItem>
