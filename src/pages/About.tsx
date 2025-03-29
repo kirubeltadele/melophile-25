@@ -21,10 +21,51 @@ import {
   Clock,
   FileText,
   UploadCloud,
-  Edit
+  Edit,
+  X
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/components/auth/AuthContext";
+
+type PharmacyProfile = {
+  name: string;
+  description: string;
+  address: string;
+  phone: string;
+  email: string;
+  license: string;
+  operatingHours: string;
+  specialties: string[];
+  avatar: string;
+};
+
+type HospitalProfile = {
+  name: string;
+  description: string;
+  address: string;
+  phone: string;
+  email: string;
+  established: string;
+  facilities: string[];
+  specialists: number;
+  beds: number;
+  avatar: string;
+};
+
+type ConsultantProfile = {
+  name: string;
+  title: string;
+  specialty: string;
+  description: string;
+  address?: string;  // Adding optional properties that are used in the UI
+  phone?: string;
+  email?: string;
+  education: string[];
+  experience: string[];
+  certifications: string[];
+  languages: string[];
+  avatar: string;
+};
 
 const About = () => {
   const { user } = useAuth();
@@ -43,7 +84,7 @@ const About = () => {
       operatingHours: "Monday - Saturday: 8:00 AM - 8:00 PM, Sunday: 9:00 AM - 6:00 PM",
       specialties: ["Prescription Medications", "OTC Products", "Medical Supplies", "Home Healthcare"],
       avatar: "https://randomuser.me/api/portraits/lego/1.jpg"
-    },
+    } as PharmacyProfile,
     hospital: {
       name: "St. Gabriel Hospital",
       description: "A premier healthcare institution committed to providing exceptional medical services and compassionate patient care.",
@@ -55,12 +96,15 @@ const About = () => {
       specialists: 45,
       beds: 200,
       avatar: "https://randomuser.me/api/portraits/lego/2.jpg"
-    },
+    } as HospitalProfile,
     consultant: {
       name: "Dr. Haile Girma",
       title: "Senior Medical Consultant",
       specialty: "Cardiology",
       description: "Experienced cardiologist with over 15 years of practice in diagnosing and treating cardiovascular conditions.",
+      address: "Medical Tower, Addis Ababa", // Added address
+      phone: "+251 911 555666", // Added phone
+      email: "dr.haile@medicaltower.com", // Added email
       education: [
         "MD, Addis Ababa University (2005)",
         "Cardiology Specialization, Johns Hopkins University (2010)"
@@ -72,7 +116,7 @@ const About = () => {
       certifications: ["Ethiopian Medical Board Certification", "American College of Cardiology"],
       languages: ["Amharic", "English", "French"],
       avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-    }
+    } as ConsultantProfile
   };
   
   // Reviews data
@@ -153,6 +197,8 @@ const About = () => {
     }
     
     if (user?.role === "pharmacy") {
+      const pharmacyProfile = currentProfile as PharmacyProfile;
+      
       return (
         <div className="space-y-6">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -172,8 +218,8 @@ const About = () => {
                   <div className="flex flex-col md:flex-row gap-6">
                     <div className="md:w-1/3 flex flex-col items-center">
                       <Avatar className="h-32 w-32">
-                        <AvatarImage src={currentProfile.avatar} alt={currentProfile.name} />
-                        <AvatarFallback>{currentProfile.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage src={pharmacyProfile.avatar} alt={pharmacyProfile.name} />
+                        <AvatarFallback>{pharmacyProfile.name.charAt(0)}</AvatarFallback>
                       </Avatar>
                       <Button variant="outline" className="mt-4 flex items-center gap-2">
                         <UploadCloud className="h-4 w-4" />
@@ -184,11 +230,11 @@ const About = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="name">Pharmacy Name</Label>
-                          <Input id="name" defaultValue={currentProfile.name} />
+                          <Input id="name" defaultValue={pharmacyProfile.name} />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="license">License Number</Label>
-                          <Input id="license" defaultValue={currentProfile.license} />
+                          <Input id="license" defaultValue={pharmacyProfile.license} />
                         </div>
                       </div>
                       
@@ -196,7 +242,7 @@ const About = () => {
                         <Label htmlFor="description">Description</Label>
                         <Textarea
                           id="description"
-                          defaultValue={currentProfile.description}
+                          defaultValue={pharmacyProfile.description}
                           rows={3}
                         />
                       </div>
@@ -204,24 +250,24 @@ const About = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="phone">Phone Number</Label>
-                          <Input id="phone" defaultValue={currentProfile.phone} />
+                          <Input id="phone" defaultValue={pharmacyProfile.phone} />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="email">Email Address</Label>
-                          <Input id="email" defaultValue={currentProfile.email} type="email" />
+                          <Input id="email" defaultValue={pharmacyProfile.email} type="email" />
                         </div>
                       </div>
                       
                       <div className="space-y-2">
                         <Label htmlFor="address">Address</Label>
-                        <Input id="address" defaultValue={currentProfile.address} />
+                        <Input id="address" defaultValue={pharmacyProfile.address} />
                       </div>
                       
                       <div className="space-y-2">
                         <Label htmlFor="hours">Operating Hours</Label>
                         <Textarea
                           id="hours"
-                          defaultValue={currentProfile.operatingHours}
+                          defaultValue={pharmacyProfile.operatingHours}
                           rows={2}
                         />
                       </div>
@@ -273,7 +319,7 @@ const About = () => {
                     <div className="mt-2 space-y-1">
                       <p className="text-sm flex items-center">
                         <span className="font-medium w-40">License Number:</span> 
-                        {currentProfile.license}
+                        {pharmacyProfile.license}
                       </p>
                       <p className="text-sm flex items-center">
                         <span className="font-medium w-40">Issue Date:</span> 
@@ -352,7 +398,7 @@ const About = () => {
     }
     
     if (user?.role === "hospital") {
-      const hospital = currentProfile as typeof profileData.hospital;
+      const hospital = currentProfile as HospitalProfile;
       
       return (
         <div className="space-y-6">
@@ -556,7 +602,7 @@ const About = () => {
     }
     
     if (user?.role === "consultant") {
-      const consultant = currentProfile as typeof profileData.consultant;
+      const consultant = currentProfile as ConsultantProfile;
       
       return (
         <div className="space-y-6">
@@ -614,6 +660,27 @@ const About = () => {
                           rows={3}
                         />
                       </div>
+                      
+                      {consultant.phone && (
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Phone</Label>
+                          <Input id="phone" defaultValue={consultant.phone} />
+                        </div>
+                      )}
+                      
+                      {consultant.email && (
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email</Label>
+                          <Input id="email" defaultValue={consultant.email} />
+                        </div>
+                      )}
+                      
+                      {consultant.address && (
+                        <div className="space-y-2">
+                          <Label htmlFor="address">Address</Label>
+                          <Input id="address" defaultValue={consultant.address} />
+                        </div>
+                      )}
                       
                       <div className="space-y-2">
                         <Label htmlFor="languages">Languages</Label>

@@ -1,14 +1,29 @@
+
 import { useState } from "react";
-import { reminders } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { BellRing, Clock, Calendar, Plus, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { ReminderData } from "./AddReminderModal";
+import { reminders } from "@/data/mockData";
+
+// Transform the reminders from mockData to match ReminderData format
+const transformReminders = (): ReminderData[] => {
+  return reminders.map(reminder => ({
+    id: reminder.id,
+    medicationId: reminder.medicationId,
+    medicationName: reminder.medicationName,
+    time: reminder.time,
+    date: reminder.startDate, // Use startDate as date
+    notes: reminder.frequency, // Use frequency as notes
+    active: reminder.active
+  }));
+};
 
 const ReminderList = () => {
-  const [userReminders, setUserReminders] = useState(reminders);
+  const [userReminders, setUserReminders] = useState<ReminderData[]>(transformReminders());
 
   const toggleReminder = (id: string) => {
     setUserReminders(
@@ -60,21 +75,20 @@ const ReminderList = () => {
                     />
                   </div>
                 </div>
-                <CardDescription>{reminder.dosage}</CardDescription>
+                <CardDescription>{reminder.notes}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <Clock className="h-4 w-4 text-gray-500 mr-2" />
                     <span className="text-sm">
-                      {reminder.frequency} • {reminder.time}
+                      {reminder.time}
                     </span>
                   </div>
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 text-gray-500 mr-2" />
                     <span className="text-sm">
-                      Start: {reminder.startDate}
-                      {reminder.endDate && ` • End: ${reminder.endDate}`}
+                      Date: {reminder.date}
                     </span>
                   </div>
                 </div>

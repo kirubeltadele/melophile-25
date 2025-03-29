@@ -8,9 +8,22 @@ import AddReminderModal, { ReminderData } from '@/components/features/AddReminde
 import { reminders as initialReminders } from '@/data/mockData';
 import { useToast } from "@/components/ui/use-toast";
 
+// Transform the reminders from mockData to match ReminderData format
+const transformReminders = (): ReminderData[] => {
+  return initialReminders.map(reminder => ({
+    id: reminder.id,
+    medicationId: reminder.medicationId,
+    medicationName: reminder.medicationName,
+    time: reminder.time,
+    date: reminder.startDate, // Use startDate as date
+    notes: reminder.frequency, // Use frequency as notes
+    active: reminder.active
+  }));
+};
+
 const Reminders = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [reminders, setReminders] = useState<ReminderData[]>(initialReminders);
+  const [reminders, setReminders] = useState<ReminderData[]>(transformReminders());
   const { toast } = useToast();
   
   const handleAddReminder = (newReminder: ReminderData) => {
