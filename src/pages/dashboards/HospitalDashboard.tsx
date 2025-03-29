@@ -1,5 +1,4 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Users, 
@@ -92,9 +91,7 @@ const HospitalDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">47</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-melophile-600">
-                View All
-              </Button>
+              
             </div>
           </CardContent>
         </Card>
@@ -111,9 +108,7 @@ const HospitalDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">123</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-teal-600">
-                Details
-              </Button>
+              
             </div>
           </CardContent>
         </Card>
@@ -149,9 +144,7 @@ const HospitalDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">42</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-blue-600">
-                Details
-              </Button>
+              
             </div>
           </CardContent>
         </Card>
