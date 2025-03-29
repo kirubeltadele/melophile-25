@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +13,8 @@ import Search from "./pages/Search";
 import Reminders from "./pages/Reminders";
 import HealthTips from "./pages/HealthTips";
 import NotFound from "./pages/NotFound";
+import melophileLogo from "/melophile-logo.png";
+import melophileIcon from "/melophile-icon.ico";
 
 const queryClient = new QueryClient();
 
@@ -29,13 +30,12 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             
-            {/* Protected Routes */}
-            <Route element={<AppLayout />}>
+            {/* Protected Routes with AppLayout */}
+            <Route element={<AppLayout logo={melophileLogo} icon={melophileIcon} />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/search" element={<Search />} />
               <Route path="/reminders" element={<Reminders />} />
               <Route path="/health-tips" element={<HealthTips />} />
-              {/* Add more routes as needed */}
             </Route>
             
             <Route path="*" element={<NotFound />} />

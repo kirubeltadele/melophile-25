@@ -1,7 +1,10 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Bell, Clock, Shield, Heart, MessageCircle, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Add logo and icon imports
+import melophileLogo from "/melophile-logo.png";
+import melophileIcon from "/melophile-icon.ico";
 
 const LandingPage = () => {
   const features = [
@@ -42,20 +45,17 @@ const LandingPage = () => {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <div className="h-8 w-8 bg-melophile-600 rounded-full flex items-center justify-center mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M7 19a6 6 0 0 0 5.7-4"></path>
-                <path d="M15 4a6 6 0 0 0-5.7 4"></path>
-                <path d="M13 16l-3-2"></path>
-                <path d="M4 12h7"></path>
-                <path d="M15 9l-3 2"></path>
-                <path d="M13 7l3 2"></path>
-                <path d="M13 12h7"></path>
-                <path d="M19 16l-3-2"></path>
-                <path d="M19 8l-3 2"></path>
-              </svg>
-            </div>
-            <span className="text-xl font-bold text-melophile-700">Melophile</span>
+            {/* Increased size of icon and logo in header */}
+            <img 
+              src={melophileIcon} 
+              alt="" 
+              className="h-10 w-10 mr-3 shadow-sm" // Increased from h-8 w-8, added shadow
+            />
+            <img 
+              src={melophileLogo} 
+              alt="Melophile" 
+              className="h-8 md:h-9" // Increased from h-6, with responsive sizing
+            />
           </div>
           <div className="flex items-center space-x-6">
             <nav className="hidden md:flex space-x-6">
@@ -302,20 +302,17 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center mb-4">
-                <div className="h-8 w-8 bg-white rounded-full flex items-center justify-center mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-melophile-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M7 19a6 6 0 0 0 5.7-4"></path>
-                    <path d="M15 4a6 6 0 0 0-5.7 4"></path>
-                    <path d="M13 16l-3-2"></path>
-                    <path d="M4 12h7"></path>
-                    <path d="M15 9l-3 2"></path>
-                    <path d="M13 7l3 2"></path>
-                    <path d="M13 12h7"></path>
-                    <path d="M19 16l-3-2"></path>
-                    <path d="M19 8l-3 2"></path>
-                  </svg>
-                </div>
-                <span className="text-xl font-bold text-white">Melophile</span>
+                {/* Increased size of icon and logo in footer */}
+                <img 
+                  src={melophileIcon} 
+                  alt="" 
+                  className="h-10 w-10 mr-3 shadow-sm" // Increased from h-8 w-8, added shadow
+                />
+                <img 
+                  src={melophileLogo} 
+                  alt="Melophile" 
+                  className="h-8" // Increased from h-6
+                />
               </div>
               <p className="mb-4">
                 Melophile is a comprehensive healthcare app designed for Ethiopia 

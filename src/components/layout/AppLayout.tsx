@@ -1,11 +1,15 @@
-
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/components/auth/AuthContext";
 import AppSidebar from "./AppSidebar";
 import AppHeader from "./AppHeader";
 
-const AppLayout = () => {
+interface AppLayoutProps {
+  logo: string;
+  icon: string;
+}
+
+const AppLayout = ({ logo, icon }: AppLayoutProps) => {
   const { isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,10 +34,19 @@ const AppLayout = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
-      <AppSidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      <AppSidebar 
+        logo={logo} 
+        icon={icon}
+        isMobileMenuOpen={isMobileMenuOpen} 
+        setIsMobileMenuOpen={setIsMobileMenuOpen} 
+      />
       
       <div className="flex-1 flex flex-col min-h-screen">
-        <AppHeader setIsMobileMenuOpen={setIsMobileMenuOpen} />
+        <AppHeader 
+          logo={logo}
+          icon={icon}
+          setIsMobileMenuOpen={setIsMobileMenuOpen} 
+        />
         <main className="flex-1 p-4 md:p-6 overflow-auto">
           <Outlet />
         </main>

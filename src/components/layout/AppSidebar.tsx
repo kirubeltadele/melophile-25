@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -26,9 +25,11 @@ import { Button } from "@/components/ui/button";
 interface AppSidebarProps {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (isOpen: boolean) => void;
+  logo: string;
+  icon: string;
 }
 
-const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: AppSidebarProps) => {
+const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSidebarProps) => {
   const { user } = useAuth();
   const location = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -101,10 +102,8 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen }: AppSidebarProps) 
     <div ref={sidebarRef} className={sidebarClass}>
       <div className="p-4 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center">
-          <div className="h-8 w-8 bg-melophile-600 rounded-full flex items-center justify-center">
-            <Pill className="h-4 w-4 text-white" />
-          </div>
-          <span className="ml-2 text-xl font-bold text-melophile-700">Melophile</span>
+          <img src={icon} alt="" className="h-8 w-8" />
+          <img src={logo} alt="Melophile" className="ml-2 h-6" />
         </div>
         <Button
           variant="ghost"

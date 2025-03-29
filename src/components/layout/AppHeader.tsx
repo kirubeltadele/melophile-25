@@ -1,4 +1,3 @@
-
 import { User, Bell, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,9 +13,11 @@ import {
 
 interface AppHeaderProps {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
+  logo: string;
+  icon: string;
 }
 
-const AppHeader = ({ setIsMobileMenuOpen }: AppHeaderProps) => {
+const AppHeader = ({ setIsMobileMenuOpen, logo, icon }: AppHeaderProps) => {
   const { user, logout } = useAuth();
 
   return (
@@ -33,7 +34,9 @@ const AppHeader = ({ setIsMobileMenuOpen }: AppHeaderProps) => {
           </Button>
         </div>
 
-        <div className="flex-1 hidden md:block" />
+        <div className="hidden md:flex items-center">
+          <img src={logo} alt="Melophile" className="h-8" />
+        </div>
 
         <div className="flex items-center space-x-4">
           <Button variant="ghost" size="icon" className="text-gray-500 relative">
