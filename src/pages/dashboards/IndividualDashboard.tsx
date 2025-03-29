@@ -8,15 +8,16 @@ import {
   Bell,
   Search,
   Heart,
-  BarChart,
   ArrowRight,
   MessageCircle,
 } from "lucide-react";
 import { medications, reminders } from "@/data/mockData";
 import ReminderList from "@/components/features/ReminderList";
 import HealthTipsList from "@/components/features/HealthTipsList";
+import { useNavigate } from "react-router-dom";
 
 const IndividualDashboard = () => {
+  const navigate = useNavigate();
   const activeReminders = reminders.filter(reminder => reminder.active).length;
   const totalMedications = medications.length;
 
@@ -34,7 +35,7 @@ const IndividualDashboard = () => {
         <p className="text-gray-600">Track your medications and health insights</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Active Medications</CardTitle>
@@ -47,7 +48,12 @@ const IndividualDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{totalMedications}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-melophile-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-melophile-600"
+                onClick={() => navigate('/medications')}
+              >
                 View All
               </Button>
             </div>
@@ -66,7 +72,12 @@ const IndividualDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{activeReminders}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-orange-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-orange-600"
+                onClick={() => navigate('/reminders')}
+              >
                 View All
               </Button>
             </div>
@@ -85,26 +96,12 @@ const IndividualDashboard = () => {
                 </div>
                 <span className="text-sm font-medium">In 2 hours</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-teal-600">
-                Details
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Health Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-2">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <BarChart className="h-5 w-5 text-green-600" />
-                </div>
-                <span className="text-2xl font-bold">85%</span>
-              </div>
-              <Button variant="ghost" size="sm" className="text-green-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-teal-600"
+                onClick={() => navigate('/reminders')}
+              >
                 Details
               </Button>
             </div>
@@ -120,7 +117,11 @@ const IndividualDashboard = () => {
                 <link.icon className="h-6 w-6" />
               </div>
               <h3 className="font-medium mb-1">{link.label}</h3>
-              <Button variant="link" className="text-gray-500 p-0">
+              <Button 
+                variant="link" 
+                className="text-gray-500 p-0"
+                onClick={() => navigate(link.to)}
+              >
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </CardContent>

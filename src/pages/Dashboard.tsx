@@ -2,6 +2,7 @@
 import { useAuth } from "@/components/auth/AuthContext";
 import IndividualDashboard from "./dashboards/IndividualDashboard";
 import PharmacyDashboard from "./dashboards/PharmacyDashboard";
+import HospitalDashboard from "./dashboards/HospitalDashboard";
 import ConsultantDashboard from "./dashboards/ConsultantDashboard";
 
 const Dashboard = () => {
@@ -11,6 +12,8 @@ const Dashboard = () => {
     return <IndividualDashboard />;
   } else if (user?.role === "pharmacy") {
     return <PharmacyDashboard />;
+  } else if (user?.role === "hospital") {
+    return <HospitalDashboard />;
   } else if (user?.role === "consultant") {
     return <ConsultantDashboard />;
   }

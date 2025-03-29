@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -18,7 +19,11 @@ import {
   UserCheck,
   Users,
   ClipboardList,
-  X 
+  X,
+  User,
+  Hospital,
+  Droplets,
+  Stethoscope
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -55,6 +60,7 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
   const getNavItems = () => {
     const commonItems = [
       { icon: Home, label: "Dashboard", to: "/dashboard" },
+      { icon: Bell, label: "Notifications", to: "/notifications" },
       { icon: Settings, label: "Settings", to: "/settings" },
     ];
 
@@ -73,16 +79,22 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
         ...commonItems,
         { icon: ShoppingBag, label: "Inventory", to: "/inventory" },
         { icon: UserCheck, label: "Prescriptions", to: "/prescriptions" },
-        { icon: Bell, label: "Notifications", to: "/notifications" },
         { icon: BarChart, label: "Analytics", to: "/analytics" },
+      ];
+    } else if (user?.role === "hospital") {
+      return [
+        ...commonItems,
+        { icon: Users, label: "Staff Members", to: "/staff" },
+        { icon: Users, label: "Patients", to: "/patients" },
+        { icon: Hospital, label: "About Hospital", to: "/about" },
+        { icon: Droplets, label: "Blood Inventory", to: "/blood-inventory" },
       ];
     } else if (user?.role === "consultant") {
       return [
         ...commonItems,
         { icon: Users, label: "Patients", to: "/patients" },
-        { icon: Video, label: "Telemedicine", to: "/telemedicine" },
         { icon: Calendar, label: "Appointments", to: "/appointments" },
-        { icon: ClipboardList, label: "Health Plans", to: "/health-plans" },
+        { icon: User, label: "About Me", to: "/about" },
       ];
     }
 

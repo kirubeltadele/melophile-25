@@ -12,7 +12,7 @@ const RegisterForm = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'individual' | 'pharmacy' | 'consultant'>('individual');
+  const [activeTab, setActiveTab] = useState<'individual' | 'pharmacy' | 'hospital' | 'consultant'>('individual');
   
   const [formData, setFormData] = useState({
     name: '',
@@ -58,9 +58,10 @@ const RegisterForm = () => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="individual" onValueChange={(value) => setActiveTab(value as any)}>
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="individual">Individual</TabsTrigger>
             <TabsTrigger value="pharmacy">Pharmacy</TabsTrigger>
+            <TabsTrigger value="hospital">Hospital</TabsTrigger>
             <TabsTrigger value="consultant">Consultant</TabsTrigger>
           </TabsList>
           
@@ -172,6 +173,62 @@ const RegisterForm = () => {
               </div>
               <Button type="submit" className="w-full bg-melophile-600 hover:bg-melophile-700" disabled={isLoading}>
                 {isLoading ? "Creating Account..." : "Register Pharmacy"}
+              </Button>
+            </form>
+          </TabsContent>
+          
+          <TabsContent value="hospital">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="hospital-name">Hospital Name</Label>
+                <Input
+                  id="hospital-name"
+                  name="name"
+                  type="text"
+                  placeholder="Ethio Health Hospital"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="hospital-email">Hospital Email</Label>
+                <Input
+                  id="hospital-email"
+                  name="email"
+                  type="email"
+                  placeholder="info@ethiohealth.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="hospital-password">Password</Label>
+                <Input
+                  id="hospital-password"
+                  name="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="hospital-confirm-password">Confirm Password</Label>
+                <Input
+                  id="hospital-confirm-password"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="••••••••"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full bg-melophile-600 hover:bg-melophile-700" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Register Hospital"}
               </Button>
             </form>
           </TabsContent>

@@ -1,7 +1,8 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from "sonner";
 
-type UserRole = 'individual' | 'pharmacy' | 'consultant' | null;
+type UserRole = 'individual' | 'pharmacy' | 'hospital' | 'consultant' | null;
 
 interface User {
   id: string;
@@ -38,6 +39,13 @@ const MOCK_USERS = {
     role: 'pharmacy' as UserRole,
     profileImage: 'https://randomuser.me/api/portraits/women/2.jpg',
   },
+  hospital: {
+    id: 'hosp-789',
+    name: 'Ethio Health Hospital',
+    email: 'info@ethiohealth.com',
+    role: 'hospital' as UserRole,
+    profileImage: 'https://randomuser.me/api/portraits/men/4.jpg',
+  },
   consultant: {
     id: 'cons-789',
     name: 'Dr. Tigist Haile',
@@ -70,6 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let mockUser;
       if (role === 'individual') mockUser = MOCK_USERS.individual;
       else if (role === 'pharmacy') mockUser = MOCK_USERS.pharmacy;
+      else if (role === 'hospital') mockUser = MOCK_USERS.hospital;
       else if (role === 'consultant') mockUser = MOCK_USERS.consultant;
       
       if (!mockUser) {

@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
@@ -5,7 +6,7 @@ export interface IUser extends mongoose.Document {
   name: string;
   email: string;
   password: string;
-  role: 'individual' | 'pharmacy' | 'consultant';
+  role: 'individual' | 'pharmacy' | 'hospital' | 'consultant';
   profileImage?: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['individual', 'pharmacy', 'consultant'],
+    enum: ['individual', 'pharmacy', 'hospital', 'consultant'],
     required: true
   },
   profileImage: {
@@ -48,4 +49,4 @@ userSchema.methods.comparePassword = async function(candidatePassword: string) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export const User = mongoose.model<IUser>('User', userSchema); 
+export const User = mongoose.model<IUser>('User', userSchema);

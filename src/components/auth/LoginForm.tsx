@@ -12,7 +12,7 @@ const LoginForm = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'individual' | 'pharmacy' | 'consultant'>('individual');
+  const [activeTab, setActiveTab] = useState<'individual' | 'pharmacy' | 'hospital' | 'consultant'>('individual');
   
   const [credentials, setCredentials] = useState({
     email: '',
@@ -50,9 +50,10 @@ const LoginForm = () => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="individual" onValueChange={(value) => setActiveTab(value as any)}>
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="individual">Individual</TabsTrigger>
             <TabsTrigger value="pharmacy">Pharmacy</TabsTrigger>
+            <TabsTrigger value="hospital">Hospital</TabsTrigger>
             <TabsTrigger value="consultant">Consultant</TabsTrigger>
           </TabsList>
           
@@ -126,6 +127,43 @@ const LoginForm = () => {
               </div>
               <Button type="submit" className="w-full bg-melophile-600 hover:bg-melophile-700" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In as Pharmacy"}
+              </Button>
+            </form>
+          </TabsContent>
+          
+          <TabsContent value="hospital">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="hospital-email">Hospital Email</Label>
+                <Input
+                  id="hospital-email"
+                  name="email"
+                  type="email"
+                  placeholder="info@ethiohealth.com"
+                  value={credentials.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="hospital-password">Password</Label>
+                  <a href="#" className="text-xs text-melophile-600 hover:underline">
+                    Forgot password?
+                  </a>
+                </div>
+                <Input
+                  id="hospital-password"
+                  name="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={credentials.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full bg-melophile-600 hover:bg-melophile-700" disabled={isLoading}>
+                {isLoading ? "Signing in..." : "Sign In as Hospital"}
               </Button>
             </form>
           </TabsContent>
