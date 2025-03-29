@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Environment variables and secrets
+.env
+.env.*
+*.env
+
+# NOTE: If you have already committed .env files to Git:
+# 1. Add these files to .gitignore (as above)
+# 2. Remove tracked .env files from Git (but keep them locally) using:
+#    git rm --cached .env
+# 3. Commit the change:
+#    git commit -m "Remove .env files from Git tracking"
+# 4. Your .env files will now be ignored by Git
+
+
+
