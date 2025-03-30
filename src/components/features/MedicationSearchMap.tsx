@@ -4,13 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Navigation, X } from "lucide-react";
 import { medications } from "@/data/mockData";
-
-// Add Google Maps type definitions
-declare global {
-  interface Window {
-    google: typeof google;
-  }
-}
+import { loadGoogleMapsScript } from "@/utils/googleMapsLoader";
 
 interface MapMarker {
   id: string;
@@ -34,6 +28,7 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
   const [markers, setMarkers] = useState<MapMarker[]>([]);
   const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [mapReady, setMapReady] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
@@ -86,10 +81,25 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
 
     generateRandomMarkers();
   }, [medicationId]);
-  
-  // Initialize the map
+
+  // Check for Google Maps API and initialize when it's loaded
   useEffect(() => {
-    if (!mapRef.current || typeof window.google === 'undefined' || !window.google.maps) {
+    // Wait for Google Maps to load before initializing the map
+    if (!window.google?.maps) {
+      // We'll try loading the script if it's not already there
+      loadGoogleMapsScript('YOUR_API_KEY').then(() => {
+        setMapReady(true);
+      }).catch((error) => {
+        console.error("Google Maps failed to load:", error);
+      });
+    } else {
+      setMapReady(true);
+    }
+  }, []);
+  
+  // Initialize the map once Google Maps is ready
+  useEffect(() => {
+    if (!mapReady || !mapRef.current || !window.google?.maps) {
       return;
     }
     
@@ -127,11 +137,11 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
       markersRef.current.forEach(marker => marker.setMap(null));
       markersRef.current = [];
     };
-  }, []);
+  }, [mapReady]);
   
   // Update markers when the map and marker data are available
   useEffect(() => {
-    if (!mapInstanceRef.current || markers.length === 0 || typeof window.google === 'undefined' || !window.google.maps) {
+    if (!mapReady || !mapInstanceRef.current || markers.length === 0 || !window.google?.maps) {
       return;
     }
     
@@ -196,7 +206,7 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
     const currentZoom = mapInstanceRef.current.getZoom();
     if (currentZoom) mapInstanceRef.current.setZoom(currentZoom - 0.5);
     
-  }, [markers, userLocation]);
+  }, [markers, userLocation, mapReady]);
   
   // Helper function to get marker color based on stock status
   const getStatusColor = (status: string) => {

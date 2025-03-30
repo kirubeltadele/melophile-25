@@ -1,27 +1,12 @@
 
 import { useEffect } from "react";
 import MedicationSearch from "@/components/features/MedicationSearch";
-
-// Define the window interface with google maps
-declare global {
-  interface Window {
-    google?: {
-      maps?: any;
-    };
-  }
-}
+import { loadGoogleMapsScript } from "@/utils/googleMapsLoader";
 
 const Search = () => {
   useEffect(() => {
-    // Check if the Google Maps script is already loaded
-    if (!document.getElementById("google-maps-script") && !window.google?.maps) {
-      const script = document.createElement("script");
-      script.id = "google-maps-script";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }
+    // Load the Google Maps script on component mount
+    loadGoogleMapsScript('YOUR_API_KEY');
   }, []);
 
   return (
