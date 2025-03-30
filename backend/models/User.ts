@@ -1,18 +1,28 @@
-
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface IUser extends mongoose.Document {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   role: 'individual' | 'pharmacy' | 'hospital' | 'consultant';
   profileImage?: string;
+  address?: string;
+  phone?: string;
+  licenseNumber?: string;
+  specialty?: string;
+  bio?: string;
+  ratings?: number;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -32,6 +42,26 @@ const userSchema = new mongoose.Schema({
   },
   profileImage: {
     type: String
+  },
+  address: {
+    type: String
+  },
+  phone: {
+    type: String
+  },
+  licenseNumber: {
+    type: String
+  },
+  specialty: {
+    type: String
+  },
+  bio: {
+    type: String
+  },
+  ratings: {
+    type: Number,
+    min: 0,
+    max: 5
   }
 }, {
   timestamps: true
