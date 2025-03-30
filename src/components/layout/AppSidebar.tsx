@@ -73,7 +73,7 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
         { icon: Search, label: "Find Medicine", to: "/search" },
         { icon: Bell, label: "Reminders", to: "/reminders" },
         { icon: Heart, label: "Health Tips", to: "/health-tips" },
-        { icon: MessageCircle, label: "Health Chat", to: "/chat" },
+        { icon: MessageCircle, label: "Health Chat", to: "/health-chat" },
         { icon: Video, label: "Telemedicine", to: "/telemedicine" },
       ];
     } else if (user?.role === "pharmacy") {
