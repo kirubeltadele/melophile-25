@@ -3,16 +3,15 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Pill, MapPin } from "lucide-react";
+import { Pill } from "lucide-react";
 import { type Medication } from "@/data/mockData";
 import MedicationDetailsModal from "./MedicationDetailsModal";
 
 interface MedicationCardProps {
   medication: Medication;
-  onFindNearby?: (medicationId: string) => void;
 }
 
-const MedicationCard = ({ medication, onFindNearby }: MedicationCardProps) => {
+const MedicationCard = ({ medication }: MedicationCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const getStockStatusColor = (status: string) => {
@@ -78,12 +77,10 @@ const MedicationCard = ({ medication, onFindNearby }: MedicationCardProps) => {
         <CardFooter className="flex justify-between border-t pt-3">
           <Button variant="outline" size="sm" onClick={() => setShowDetails(true)}>Details</Button>
           <Button 
-            className="bg-melophile-600 hover:bg-melophile-700 flex items-center"
+            className="bg-melophile-600 hover:bg-melophile-700"
             size="sm"
-            onClick={() => onFindNearby && onFindNearby(medication.id)}
           >
-            <MapPin className="mr-2 h-3 w-3" />
-            Find Nearby
+            Add to Cart
           </Button>
         </CardFooter>
       </Card>

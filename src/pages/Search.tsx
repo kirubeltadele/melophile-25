@@ -1,14 +1,7 @@
 
-import { useEffect } from "react";
 import MedicationSearch from "@/components/features/MedicationSearch";
-import { loadGoogleMapsScript } from "@/utils/googleMapsLoader";
 
 const Search = () => {
-  useEffect(() => {
-    // Load the Google Maps script on component mount
-    loadGoogleMapsScript('YOUR_API_KEY');
-  }, []);
-
   return (
     <div className="space-y-6">
       <div>
