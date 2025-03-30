@@ -5,10 +5,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const HealthTipsList = () => {
   const [visibleTips, setVisibleTips] = useState(healthTips.slice(0, 3));
   const [showAll, setShowAll] = useState(false);
+  const navigate = useNavigate();
 
   const toggleShowAll = () => {
     if (showAll) {
@@ -20,6 +22,10 @@ const HealthTipsList = () => {
     }
   };
 
+  const handleReadMoreClick = (id: string) => {
+    navigate(`/blog/${id}`);
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -29,7 +35,8 @@ const HealthTipsList = () => {
       
       <div className="space-y-6">
         {visibleTips.map(tip => (
-          <Card key={tip.id} className="hover:shadow-md transition-shadow overflow-hidden">
+          <Card key={tip.id} className="hover:shadow-md transition-shadow overflow-hidden cursor-pointer" 
+                onClick={() => handleReadMoreClick(tip.id)}>
             <div className="md:flex">
               {tip.image && (
                 <div className="md:w-1/3 h-48 md:h-auto">
@@ -61,7 +68,14 @@ const HealthTipsList = () => {
                   <p className="text-gray-600">{tip.content}</p>
                 </CardContent>
                 <CardFooter className="pt-0">
-                  <Button variant="link" className="p-0 text-melophile-600 hover:text-melophile-800">
+                  <Button 
+                    variant="link" 
+                    className="p-0 text-melophile-600 hover:text-melophile-800"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleReadMoreClick(tip.id);
+                    }}
+                  >
                     Read More
                   </Button>
                 </CardFooter>

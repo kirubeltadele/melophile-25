@@ -15,9 +15,15 @@ import { medications, reminders } from "@/data/mockData";
 import ReminderList from "@/components/features/ReminderList";
 import HealthTipsList from "@/components/features/HealthTipsList";
 import { useNavigate } from "react-router-dom";
+import AddReminderModal, { ReminderData } from '@/components/features/AddReminderModal';
+import { useToast } from "@/components/ui/use-toast";
 
 const IndividualDashboard = () => {
   const navigate = useNavigate();
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [userReminders, setUserReminders] = useState<ReminderData[]>([]);
+  const { toast } = useToast();
+  
   const activeReminders = reminders.filter(reminder => reminder.active).length;
   const totalMedications = medications.length;
 
@@ -27,6 +33,19 @@ const IndividualDashboard = () => {
     { icon: Heart, label: "Health Tips", to: "/health-tips", color: "bg-red-500" },
     { icon: MessageCircle, label: "Health Chat", to: "/chat", color: "bg-green-500" },
   ];
+
+  const handleAddReminder = (newReminder: ReminderData) => {
+    setUserReminders([...userReminders, newReminder]);
+    
+    toast({
+      title: "Reminder Added",
+      description: `Reminder for ${newReminder.medicationName} set for ${newReminder.time}`,
+      duration: 3000,
+    });
+    
+    // Update the window.dispatchEvent to refresh reminders list
+    window.dispatchEvent(new Event('reminders-updated'));
+  };
 
   return (
     <div className="space-y-8">
@@ -129,9 +148,15 @@ const IndividualDashboard = () => {
         ))}
       </div>
 
-      <ReminderList />
+      <ReminderList onAddReminderClick={() => setIsAddModalOpen(true)} />
       
       <HealthTipsList />
+      
+      <AddReminderModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onAddReminder={handleAddReminder}
+      />
     </div>
   );
 };

@@ -1,107 +1,96 @@
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Info } from "lucide-react";
-import { Medication } from "@/data/mockData";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pill, MapPin } from "lucide-react";
+
+interface Medication {
+  id: string;
+  name: string;
+  brandName: string;
+  genericName: string;
+  description: string;
+  category: string;
+  stockStatus: "available" | "low" | "unavailable";
+  price: number;
+  dosage: string;
+  sideEffects: string[];
+  usageInstructions: string;
+}
 
 interface MedicationCardProps {
   medication: Medication;
+  onFindNearby?: (medicationId: string) => void;
 }
 
-const MedicationCard = ({ medication }: MedicationCardProps) => {
-  const getStockBadge = (status: 'available' | 'low' | 'unavailable') => {
+const MedicationCard = ({ medication, onFindNearby }: MedicationCardProps) => {
+  const getStockStatusColor = (status: string) => {
     switch (status) {
-      case 'available':
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-200">In Stock</Badge>;
-      case 'low':
-        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Low Stock</Badge>;
-      case 'unavailable':
-        return <Badge className="bg-red-100 text-red-800 hover:bg-red-200">Out of Stock</Badge>;
+      case "available":
+        return "bg-green-500";
+      case "low":
+        return "bg-amber-500";
+      case "unavailable":
+        return "bg-red-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
+  const getStockStatusText = (status: string) => {
+    switch (status) {
+      case "available":
+        return "In Stock";
+      case "low":
+        return "Low Stock";
+      case "unavailable":
+        return "Out of Stock";
+      default:
+        return "Unknown Status";
     }
   };
 
   return (
-    <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
-      <CardHeader className="pb-2">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow">
+      <div className={`h-2 ${getStockStatusColor(medication.stockStatus)}`}></div>
+      <CardHeader>
         <div className="flex justify-between items-start">
-          <CardTitle className="text-lg font-semibold text-melophile-700">{medication.name}</CardTitle>
-          {getStockBadge(medication.stockStatus)}
-        </div>
-        <CardDescription>
-          <span className="block">{medication.brandName}</span>
-          <span className="block text-gray-500 text-xs italic">{medication.genericName}</span>
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex-grow">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Category:</span>
-            <span>{medication.category}</span>
+          <div>
+            <CardTitle className="text-lg font-semibold">{medication.name}</CardTitle>
+            <p className="text-sm text-gray-500">
+              {medication.brandName} ({medication.genericName})
+            </p>
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Dosage:</span>
+          <Badge variant="outline" className="capitalize">
+            {medication.category}
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-gray-600 line-clamp-2 mb-3">{medication.description}</p>
+        
+        <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center">
+            <Pill className="h-4 w-4 mr-1 text-melophile-600" />
             <span>{medication.dosage}</span>
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Price:</span>
-            <span className="font-medium">ETB {medication.price.toFixed(2)}</span>
+          
+          <div className="flex items-center">
+            <span className={`inline-block w-2 h-2 rounded-full ${getStockStatusColor(medication.stockStatus)} mr-2`}></span>
+            <span>{getStockStatusText(medication.stockStatus)}</span>
           </div>
         </div>
-      </CardContent>
-      <CardFooter className="pt-0 flex justify-between">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="text-melophile-600">
-              <Info className="mr-1 h-4 w-4" />
-              Details
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>{medication.name} ({medication.dosage})</DialogTitle>
-              <DialogDescription>
-                {medication.brandName} &bull; {medication.genericName}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-sm font-medium mb-1">Description</h4>
-                <p className="text-sm text-gray-600">{medication.description}</p>
-              </div>
-              <Separator />
-              <div>
-                <h4 className="text-sm font-medium mb-1">Side Effects</h4>
-                <ul className="list-disc list-inside text-sm text-gray-600">
-                  {medication.sideEffects.map((effect, index) => (
-                    <li key={index}>{effect}</li>
-                  ))}
-                </ul>
-              </div>
-              <Separator />
-              <div>
-                <h4 className="text-sm font-medium mb-1">Contraindications</h4>
-                <ul className="list-disc list-inside text-sm text-gray-600">
-                  {medication.contraindications.map((contraindication, index) => (
-                    <li key={index}>{contraindication}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
         
-        <Button variant="default" size="sm" className="bg-melophile-600 hover:bg-melophile-700">
-          <MapPin className="mr-1 h-4 w-4" />
+        <p className="mt-3 font-semibold">${medication.price.toFixed(2)}</p>
+      </CardContent>
+      <CardFooter className="flex justify-between border-t pt-3">
+        <Button variant="outline" size="sm">Details</Button>
+        <Button 
+          className="bg-melophile-600 hover:bg-melophile-700 flex items-center"
+          size="sm"
+          onClick={() => onFindNearby && onFindNearby(medication.id)}
+        >
+          <MapPin className="mr-2 h-3 w-3" />
           Find Nearby
         </Button>
       </CardFooter>

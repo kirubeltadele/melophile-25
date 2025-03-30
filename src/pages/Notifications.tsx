@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Bell,
@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Mock data
-const notifications = [
+const initialNotifications = [
   {
     id: "notif-001",
     title: "Medication Reminder",
@@ -66,7 +66,14 @@ const notifications = [
 ];
 
 const Notifications = () => {
-  const [activeNotifications, setActiveNotifications] = useState(notifications);
+  const [activeNotifications, setActiveNotifications] = useState(initialNotifications);
+  
+  // Update localStorage when notifications change
+  useEffect(() => {
+    localStorage.setItem('notifications', JSON.stringify(activeNotifications));
+    // Dispatch an event to notify other components that notifications have changed
+    window.dispatchEvent(new Event('notifications-updated'));
+  }, [activeNotifications]);
   
   const handleMarkAsRead = (id: string) => {
     setActiveNotifications(prev => 

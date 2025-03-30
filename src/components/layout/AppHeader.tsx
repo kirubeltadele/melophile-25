@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/components/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,9 +23,39 @@ interface AppHeaderProps {
 const AppHeader = ({ setIsMobileMenuOpen, logo, icon }: AppHeaderProps) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [unseenNotificationsCount, setUnseenNotificationsCount] = useState(0);
   
-  // Sample unseen notifications count - in a real app this would come from a state or context
-  const unseenNotificationsCount = 3;
+  useEffect(() => {
+    // In a real app, this would be coming from an API call or context
+    // For now, we'll just check if there's any unread notifications in local storage
+    const getUnseenCount = () => {
+      try {
+        // Try to get notifications from localStorage
+        const storedNotifications = localStorage.getItem('notifications');
+        if (storedNotifications) {
+          const notifications = JSON.parse(storedNotifications);
+          const unseenCount = notifications.filter((notif: any) => !notif.read).length;
+          setUnseenNotificationsCount(unseenCount);
+        } else {
+          // If no notifications in localStorage, use mock data
+          // This would come from the imported mock data in a real app
+          setUnseenNotificationsCount(3); 
+        }
+      } catch (error) {
+        console.error('Error getting notifications count:', error);
+        setUnseenNotificationsCount(0);
+      }
+    };
+
+    getUnseenCount();
+
+    // Set up an event listener for notification updates
+    window.addEventListener('notifications-updated', getUnseenCount);
+    
+    return () => {
+      window.removeEventListener('notifications-updated', getUnseenCount);
+    };
+  }, []);
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-10">

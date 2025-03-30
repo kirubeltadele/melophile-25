@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { BellRing, Clock, Calendar, Plus, Trash2 } from "lucide-react";
+import { BellRing, Clock, Calendar, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ReminderData } from "./AddReminderModal";
@@ -22,7 +22,11 @@ const transformReminders = (): ReminderData[] => {
   }));
 };
 
-const ReminderList = () => {
+interface ReminderListProps {
+  onAddReminderClick?: () => void;
+}
+
+const ReminderList = ({ onAddReminderClick }: ReminderListProps) => {
   const [userReminders, setUserReminders] = useState<ReminderData[]>(transformReminders());
 
   const toggleReminder = (id: string) => {
@@ -55,9 +59,6 @@ const ReminderList = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-melophile-800">Medication Reminders</h2>
-        <Button className="bg-melophile-600 hover:bg-melophile-700">
-          <Plus className="mr-2 h-4 w-4" /> Add Reminder
-        </Button>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,8 +116,11 @@ const ReminderList = () => {
             <BellRing className="h-10 w-10 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-600 mb-1">No reminders set</h3>
             <p className="text-gray-500 mb-4">You haven't set up any medication reminders yet.</p>
-            <Button className="bg-melophile-600 hover:bg-melophile-700">
-              <Plus className="mr-2 h-4 w-4" /> Add Your First Reminder
+            <Button 
+              className="bg-melophile-600 hover:bg-melophile-700"
+              onClick={onAddReminderClick}
+            >
+              Add Your First Reminder
             </Button>
           </div>
         )}

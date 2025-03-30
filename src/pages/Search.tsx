@@ -1,7 +1,20 @@
 
+import { useEffect } from "react";
 import MedicationSearch from "@/components/features/MedicationSearch";
 
 const Search = () => {
+  useEffect(() => {
+    // Check if the Google Maps script is already loaded
+    if (!document.getElementById("google-maps-script") && !window.google?.maps) {
+      const script = document.createElement("script");
+      script.id = "google-maps-script";
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   return (
     <div className="space-y-6">
       <div>

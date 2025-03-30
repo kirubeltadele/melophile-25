@@ -116,7 +116,7 @@ const Reminders = () => {
         </Card>
       </div>
       
-      <ReminderList />
+      <ReminderList onAddReminderClick={() => setIsAddModalOpen(true)} />
       
       <AddReminderModal
         isOpen={isAddModalOpen}
