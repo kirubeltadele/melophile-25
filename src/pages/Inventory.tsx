@@ -36,13 +36,17 @@ import { medications as initialMedications, Medication as ImportedMedication } f
 interface Medication extends ImportedMedication {
   stockQuantity: number;
   expiryDate?: string;
+  sideEffects: string;  // Changed from string[] to string to match mockData
+  contraindications?: string;  // Made optional to match mockData
 }
 
 const Inventory = () => {
   // Transform imported medications to match our interface
   const transformedMedications: Medication[] = initialMedications.map(med => ({
     ...med,
-    stockQuantity: Math.floor(Math.random() * 50) // Adding a random stock quantity for demo purposes
+    stockQuantity: Math.floor(Math.random() * 50), // Adding a random stock quantity for demo purposes
+    sideEffects: med.sideEffects || "",  // Ensure string type, not string[]
+    contraindications: ""  // Add missing field with default value
   }));
 
   const [inventory, setInventory] = useState<Medication[]>(transformedMedications);
@@ -62,8 +66,8 @@ const Inventory = () => {
     price: 0,
     expiryDate: "",
     description: "",
-    sideEffects: [],
-    contraindications: [],
+    sideEffects: "",  // Changed from [] to ""
+    contraindications: "",  // Changed from [] to ""
     dosage: ""
   });
   
@@ -105,8 +109,8 @@ const Inventory = () => {
       ...newMedication,
       id: `med-${Date.now()}`,
       stockStatus,
-      sideEffects: [], // Initialize with empty arrays for required fields
-      contraindications: []
+      sideEffects: "", // Initialize with empty arrays for required fields
+      contraindications: ""
     };
     
     setInventory([...inventory, newMed]);
@@ -123,8 +127,8 @@ const Inventory = () => {
       price: 0,
       expiryDate: "",
       description: "",
-      sideEffects: [],
-      contraindications: [],
+      sideEffects: "",
+      contraindications: "",
       dosage: ""
     });
     setIsAddDialogOpen(false);
