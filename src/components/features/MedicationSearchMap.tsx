@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Navigation, X } from "lucide-react";
 import { medications } from "@/data/mockData";
 
+// Add Google Maps type definitions
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
+
 interface MapMarker {
   id: string;
   name: string;
@@ -82,7 +89,9 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
   
   // Initialize the map
   useEffect(() => {
-    if (!mapRef.current || typeof google === 'undefined') return;
+    if (!mapRef.current || typeof window.google === 'undefined' || !window.google.maps) {
+      return;
+    }
     
     // Try to get user's location
     if (navigator.geolocation) {
@@ -122,7 +131,9 @@ const MedicationSearchMap: React.FC<MedicationSearchMapProps> = ({ medicationId,
   
   // Update markers when the map and marker data are available
   useEffect(() => {
-    if (!mapInstanceRef.current || markers.length === 0) return;
+    if (!mapInstanceRef.current || markers.length === 0 || typeof window.google === 'undefined' || !window.google.maps) {
+      return;
+    }
     
     // Clear previous markers
     markersRef.current.forEach(marker => marker.setMap(null));

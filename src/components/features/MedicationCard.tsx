@@ -3,20 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pill, MapPin } from "lucide-react";
-
-interface Medication {
-  id: string;
-  name: string;
-  brandName: string;
-  genericName: string;
-  description: string;
-  category: string;
-  stockStatus: "available" | "low" | "unavailable";
-  price: number;
-  dosage: string;
-  sideEffects: string[];
-  usageInstructions: string;
-}
+import { type Medication } from "@/data/mockData";
 
 interface MedicationCardProps {
   medication: Medication;

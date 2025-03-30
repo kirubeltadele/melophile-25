@@ -2,6 +2,15 @@
 import { useEffect } from "react";
 import MedicationSearch from "@/components/features/MedicationSearch";
 
+// Define the window interface with google maps
+declare global {
+  interface Window {
+    google?: {
+      maps?: any;
+    };
+  }
+}
+
 const Search = () => {
   useEffect(() => {
     // Check if the Google Maps script is already loaded

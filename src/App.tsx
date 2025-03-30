@@ -57,7 +57,12 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
-              <Route path="/" element={<AppLayout />}>
+              <Route path="/" element={
+                <AppLayout 
+                  logo="/melophile-logo.png"
+                  icon="/melophile-icon.ico"
+                />
+              }>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/search" element={<Search />} />

@@ -1,4 +1,3 @@
-
 export interface Medication {
   id: string;
   name: string;
@@ -12,6 +11,7 @@ export interface Medication {
   description: string;
   sideEffects: string[];
   contraindications: string[];
+  usageInstructions?: string;
 }
 
 export interface Pharmacy {
@@ -42,6 +42,7 @@ export interface HealthTip {
   image?: string;
   date: string;
   author: string;
+  likes?: number;
 }
 
 export interface Reminder {
@@ -69,7 +70,8 @@ export const medications: Medication[] = [
     image: "https://www.drugs.com/images/pills/fio/SDZ07710.JPG",
     description: "Amoxicillin is a penicillin antibiotic that fights bacteria.",
     sideEffects: ["Diarrhea", "Stomach pain", "Headache", "Rash"],
-    contraindications: ["Penicillin allergy", "Liver disease", "Mononucleosis"]
+    contraindications: ["Penicillin allergy", "Liver disease", "Mononucleosis"],
+    usageInstructions: "Take with or without food every 8-12 hours as directed."
   },
   {
     id: "med-002",
@@ -83,7 +85,8 @@ export const medications: Medication[] = [
     image: "https://www.drugs.com/images/pills/fio/ACH03970.JPG",
     description: "Paracetamol is used to treat pain and fever.",
     sideEffects: ["Nausea", "Stomach pain", "Loss of appetite"],
-    contraindications: ["Liver disease", "Alcoholism"]
+    contraindications: ["Liver disease", "Alcoholism"],
+    usageInstructions: "Take with food or milk if stomach upset occurs."
   },
   {
     id: "med-003",
@@ -97,7 +100,8 @@ export const medications: Medication[] = [
     image: "https://www.drugs.com/images/pills/fio/TEV05251.JPG",
     description: "Metformin is used to treat type 2 diabetes.",
     sideEffects: ["Nausea", "Vomiting", "Diarrhea", "Stomach pain"],
-    contraindications: ["Kidney disease", "Heart failure", "Liver disease"]
+    contraindications: ["Kidney disease", "Heart failure", "Liver disease"],
+    usageInstructions: "Take with meals to reduce stomach upset."
   },
   {
     id: "med-004",
@@ -111,7 +115,8 @@ export const medications: Medication[] = [
     image: "https://www.drugs.com/images/pills/fio/PFE04790.JPG",
     description: "Atorvastatin is used to lower cholesterol and triglycerides.",
     sideEffects: ["Muscle pain", "Joint pain", "Diarrhea"],
-    contraindications: ["Liver disease", "Pregnancy", "Breastfeeding"]
+    contraindications: ["Liver disease", "Pregnancy", "Breastfeeding"],
+    usageInstructions: "Take at the same time each day, with or without food."
   },
   {
     id: "med-005",
@@ -125,7 +130,8 @@ export const medications: Medication[] = [
     image: "https://www.drugs.com/images/pills/fio/BMY04910.JPG",
     description: "Losartan is used to treat high blood pressure and heart failure.",
     sideEffects: ["Dizziness", "Headache", "Cough", "Upper respiratory infection"],
-    contraindications: ["Pregnancy", "Diabetes medication", "ACE inhibitors"]
+    contraindications: ["Pregnancy", "Diabetes medication", "ACE inhibitors"],
+    usageInstructions: "Take as directed, with or without food."
   }
 ];
 
@@ -194,7 +200,8 @@ export const healthTips: HealthTip[] = [
     category: "Diabetes",
     image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528",
     date: "2023-04-15",
-    author: "Dr. Tigist Haile"
+    author: "Dr. Tigist Haile",
+    likes: 42
   },
   {
     id: "tip-002",
@@ -203,7 +210,8 @@ export const healthTips: HealthTip[] = [
     category: "General Health",
     image: "https://images.unsplash.com/photo-1559839914-17aae19cec71",
     date: "2023-05-02",
-    author: "Dr. Samuel Girma"
+    author: "Dr. Samuel Girma",
+    likes: 38
   },
   {
     id: "tip-003",
@@ -212,7 +220,8 @@ export const healthTips: HealthTip[] = [
     category: "Medication",
     image: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de",
     date: "2023-05-20",
-    author: "Dr. Rahel Tesfa"
+    author: "Dr. Rahel Tesfa",
+    likes: 56
   }
 ];
 
