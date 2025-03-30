@@ -301,18 +301,8 @@ const LandingPage = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center mb-4">
-                {/* Increased size of icon and logo in footer */}
-                <img 
-                  src={melophileIcon} 
-                  alt="" 
-                  className="h-10 w-10 mr-3 shadow-sm" // Increased from h-8 w-8, added shadow
-                />
-                <img 
-                  src={melophileLogo} 
-                  alt="Melophile" 
-                  className="h-8" // Increased from h-6
-                />
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold text-white">Melophile</h2>
               </div>
               <p className="mb-4">
                 Melophile is a comprehensive healthcare app designed for Ethiopia 
