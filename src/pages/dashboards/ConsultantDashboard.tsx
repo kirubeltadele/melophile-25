@@ -22,8 +22,11 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
 
 const ConsultantDashboard = () => {
+  const navigate = useNavigate();
+  
   // Sample data for upcoming appointments
   const upcomingAppointments = [
     { 
@@ -89,7 +92,7 @@ const ConsultantDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className="cursor-pointer hover:shadow-md transition-all" onClick={() => navigate("/patients")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Total Patients</CardTitle>
           </CardHeader>
@@ -101,14 +104,22 @@ const ConsultantDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">124</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-melophile-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-melophile-600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/patients");
+                }}
+              >
                 View All
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="cursor-pointer hover:shadow-md transition-all" onClick={() => navigate("/appointments")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Today's Appointments</CardTitle>
           </CardHeader>
@@ -120,14 +131,22 @@ const ConsultantDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">{upcomingAppointments.length}</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-teal-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-teal-600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/appointments");
+                }}
+              >
                 Schedule
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="cursor-pointer hover:shadow-md transition-all" onClick={() => navigate("/telemedicine")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Next Appointment</CardTitle>
           </CardHeader>
@@ -139,14 +158,22 @@ const ConsultantDashboard = () => {
                 </div>
                 <span className="text-sm font-medium">In 45 minutes</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-blue-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-blue-600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/telemedicine");
+                }}
+              >
                 Prepare
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="cursor-pointer hover:shadow-md transition-all" onClick={() => navigate("/about-consultant")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500">Pending Reviews</CardTitle>
           </CardHeader>
@@ -158,7 +185,15 @@ const ConsultantDashboard = () => {
                 </div>
                 <span className="text-2xl font-bold">7</span>
               </div>
-              <Button variant="ghost" size="sm" className="text-orange-600">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-orange-600"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate("/about-consultant");
+                }}
+              >
                 Review
               </Button>
             </div>
@@ -208,11 +243,20 @@ const ConsultantDashboard = () => {
                       </span>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="outline" size="sm" className="mr-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="mr-2"
+                        onClick={() => navigate(`/patients?appointmentId=${appointment.id}`)}
+                      >
                         Details
                       </Button>
                       {appointment.type === "Video" && (
-                        <Button size="sm" className="bg-melophile-600 hover:bg-melophile-700">
+                        <Button 
+                          size="sm" 
+                          className="bg-melophile-600 hover:bg-melophile-700"
+                          onClick={() => navigate("/telemedicine")}
+                        >
                           Join
                         </Button>
                       )}
@@ -222,7 +266,12 @@ const ConsultantDashboard = () => {
               </TableBody>
             </Table>
             <div className="mt-4 flex justify-center">
-              <Button variant="outline">View Full Schedule</Button>
+              <Button 
+                variant="outline"
+                onClick={() => navigate("/appointments")}
+              >
+                View Full Schedule
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -233,23 +282,42 @@ const ConsultantDashboard = () => {
             <CardDescription>Common consultant tasks</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button className="w-full bg-melophile-600 hover:bg-melophile-700 flex items-center justify-start">
+            <Button 
+              className="w-full bg-melophile-600 hover:bg-melophile-700 flex items-center justify-start"
+              onClick={() => navigate("/telemedicine")}
+            >
               <Video className="mr-2 h-4 w-4" />
               Start Telemedicine Session
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+              onClick={() => navigate("/appointments")}
+            >
               <Calendar className="mr-2 h-4 w-4" />
               Schedule Appointment
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+              onClick={() => navigate("/patients")}
+            >
               <Users className="mr-2 h-4 w-4" />
               Patient Records
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+              onClick={() => navigate("/health-chat")}
+            >
               <MessageCircle className="mr-2 h-4 w-4" />
               Send Message
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-start">
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-start"
+              onClick={() => navigate("/about-consultant")}
+            >
               <Activity className="mr-2 h-4 w-4" />
               Create Health Plan
             </Button>
