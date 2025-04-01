@@ -61,7 +61,7 @@ const consultants = [
   {
     id: "4",
     name: " Dr. Hiwot Solomon",
-    specialty: "Executive Officer for Disease Prevention and Control at Ethiopia's Ministry of tealth",
+    specialty: "Executive Officer for Disease Prevention and Control at Ethiopia's Ministry of Health",
     rating: 4.6,
     reviewCount: 78,
     yearsExperience: 7,
