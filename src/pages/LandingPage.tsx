@@ -108,8 +108,8 @@ const LandingPage = () => {
               </div>
               <div className="rounded-xl overflow-hidden shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" 
-                  alt="Healthcare in Ethiopia"
+                  src="/general-logo.jpg" 
+                  alt="Melophile General Logo"
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -345,6 +345,20 @@ const LandingPage = () => {
               <a href="#" className="hover:text-melophile-400">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@melophile_pharma?is_from_webapp=1&sender_device=pc" 
+                className="hover:text-melophile-400" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <svg 
+                  className="h-5 w-5" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.5 17.25h-3v-9h3v9zm-1.5-10.5c-.825 0-1.5-.675-1.5-1.5s.675-1.5 1.5-1.5 1.5.675 1.5 1.5-.675 1.5-1.5 1.5z"/>
                 </svg>
               </a>
             </div>
