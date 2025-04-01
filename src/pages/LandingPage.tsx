@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Bell, Clock, Shield, Heart, MessageCircle, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -43,34 +44,33 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-2 sm:py-4 flex justify-between items-center">
           <div className="flex items-center">
-            {/* Increased size of icon and logo in header */}
             <img 
               src={melophileIcon} 
               alt="" 
-              className="h-10 w-10 mr-3 shadow-sm" // Increased from h-8 w-8, added shadow
+              className="h-8 w-8 sm:h-10 sm:w-10 mr-2 sm:mr-3 shadow-sm" 
             />
             <img 
               src={melophileLogo} 
               alt="Melophile" 
-              className="h-8 md:h-9" // Increased from h-6, with responsive sizing
+              className="h-6 sm:h-8 md:h-9" 
             />
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center">
             <nav className="hidden md:flex space-x-6">
               <a href="#features" className="text-gray-600 hover:text-melophile-600">Features</a>
               <a href="#roles" className="text-gray-600 hover:text-melophile-600">User Roles</a>
               <a href="#about" className="text-gray-600 hover:text-melophile-600">About</a>
             </nav>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center ml-4 space-x-2 sm:space-x-3">
               <Link to="/login">
-                <Button variant="ghost" className="text-melophile-600 hover:text-melophile-700 hover:bg-melophile-50">
+                <Button variant="ghost" className="text-melophile-600 hover:text-melophile-700 hover:bg-melophile-50 text-xs sm:text-sm px-2 sm:px-4">
                   Log in
                 </Button>
               </Link>
               <Link to="/register">
-                <Button className="bg-melophile-600 hover:bg-melophile-700 text-white">
+                <Button className="bg-melophile-600 hover:bg-melophile-700 text-white text-xs sm:text-sm px-2 sm:px-4">
                   Sign up
                 </Button>
               </Link>
@@ -80,38 +80,41 @@ const LandingPage = () => {
       </header>
 
       <main>
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 px-4 bg-gradient-to-br from-melophile-50 to-teal-50">
+        {/* Hero Section - Reordered to show image first on mobile */}
+        <section className="py-12 md:py-24 px-4 bg-gradient-to-br from-melophile-50 to-teal-50">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl font-bold text-melophile-800 leading-tight">
-                  Your Complete Healthcare Companion in Ethiopia
-                </h1>
-                <p className="text-lg text-gray-600">
-                  Melophile connects patients, pharmacies, and healthcare providers 
-                  for better medication management and health insights.
-                </p>
-                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-4">
-                  <Link to="/register">
-                    <Button className="bg-melophile-600 hover:bg-melophile-700 text-white px-6 py-3 rounded-md font-medium w-full sm:w-auto">
-                      Get Started
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link to="/login">
-                    <Button variant="outline" className="px-6 py-3 rounded-md font-medium w-full sm:w-auto">
-                      Learn More
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-              <div className="rounded-xl overflow-hidden shadow-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              {/* Image now comes first in the DOM order */}
+              <div className="rounded-xl overflow-hidden shadow-2xl order-1 md:order-2">
                 <img 
                   src="/general-logo.jpg" 
                   alt="Melophile General Logo"
                   className="w-full h-auto object-cover"
                 />
+              </div>
+              
+              {/* Text content comes second */}
+              <div className="space-y-6 order-2 md:order-1">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-melophile-800 leading-tight">
+                  Your Complete Healthcare Companion in Ethiopia
+                </h1>
+                <p className="text-base sm:text-lg text-gray-600">
+                  Melophile connects patients, pharmacies, and healthcare providers 
+                  for better medication management and health insights.
+                </p>
+                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-4">
+                  <Link to="/register">
+                    <Button className="bg-melophile-600 hover:bg-melophile-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-md font-medium w-full sm:w-auto">
+                      Get Started
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/login">
+                    <Button variant="outline" className="px-4 sm:px-6 py-2 sm:py-3 rounded-md font-medium w-full sm:w-auto">
+                      Learn More
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -297,22 +300,22 @@ const LandingPage = () => {
         </section>
       </main>
 
-      <footer className="bg-gray-900 text-gray-300 py-12 px-4">
+      <footer className="bg-gray-900 text-gray-300 py-8 sm:py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="col-span-1 sm:col-span-2">
               <div className="mb-4">
-                <h2 className="text-2xl font-bold text-white">Melophile</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-white">Melophile</h2>
               </div>
-              <p className="mb-4">
+              <p className="mb-4 text-sm sm:text-base">
                 Melophile is a comprehensive healthcare app designed for Ethiopia 
                 that connects patients, pharmacies, and healthcare providers.
               </p>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
-              <ul className="space-y-2">
+              <h3 className="text-base sm:text-lg font-semibold mb-4 text-white">Quick Links</h3>
+              <ul className="space-y-2 text-sm sm:text-base">
                 <li><a href="#features" className="hover:text-melophile-400">Features</a></li>
                 <li><a href="#roles" className="hover:text-melophile-400">User Roles</a></li>
                 <li><a href="#about" className="hover:text-melophile-400">About</a></li>
@@ -320,8 +323,8 @@ const LandingPage = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-white">Legal</h3>
-              <ul className="space-y-2">
+              <h3 className="text-base sm:text-lg font-semibold mb-4 text-white">Legal</h3>
+              <ul className="space-y-2 text-sm sm:text-base">
                 <li><a href="#" className="hover:text-melophile-400">Privacy Policy</a></li>
                 <li><a href="#" className="hover:text-melophile-400">Terms of Service</a></li>
                 <li><a href="#" className="hover:text-melophile-400">Cookie Policy</a></li>
@@ -329,8 +332,8 @@ const LandingPage = () => {
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p>© 2023 Melophile. All rights reserved.</p>
+          <div className="border-t border-gray-800 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm sm:text-base">© 2023 Melophile. All rights reserved.</p>
             <div className="mt-4 md:mt-0 flex space-x-4">
               <a href="#" className="hover:text-melophile-400">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -356,9 +359,9 @@ const LandingPage = () => {
                 <svg 
                   className="h-5 w-5" 
                   fill="currentColor" 
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 448 512"
                 >
-                  <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.5 17.25h-3v-9h3v9zm-1.5-10.5c-.825 0-1.5-.675-1.5-1.5s.675-1.5 1.5-1.5 1.5.675 1.5 1.5-.675 1.5-1.5 1.5z"/>
+                  <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
                 </svg>
               </a>
             </div>
