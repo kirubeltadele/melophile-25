@@ -7,9 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { useTheme } from "@/components/theme/ThemeProvider";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Sun, Moon, Palette } from "lucide-react";
 
 const Settings = () => {
   const { user } = useAuth();
+  const { theme, setTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   
   const [profileData, setProfileData] = useState({
@@ -93,9 +97,10 @@ const Settings = () => {
       </div>
 
       <Tabs defaultValue="profile">
-        <TabsList className="grid w-full max-w-md grid-cols-2">
+        <TabsList className="grid w-full max-w-md grid-cols-3">
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="appearance">Appearance</TabsTrigger>
         </TabsList>
         
         <TabsContent value="profile">
@@ -217,6 +222,73 @@ const Settings = () => {
                 </Button>
               </CardFooter>
             </form>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="appearance">
+          <Card className="max-w-2xl">
+            <CardHeader>
+              <CardTitle>Appearance</CardTitle>
+              <CardDescription>Customize the look and feel of the application.</CardDescription>
+            </CardHeader>
+            
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="theme">Theme</Label>
+                <ToggleGroup type="single" value={theme} onValueChange={(value) => value && setTheme(value as any)}>
+                  <ToggleGroupItem value="light" aria-label="Light Theme" className="flex flex-col items-center gap-1 p-3">
+                    <Sun className="h-5 w-5" />
+                    <span>Light</span>
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="dark" aria-label="Dark Theme" className="flex flex-col items-center gap-1 p-3">
+                    <Moon className="h-5 w-5" />
+                    <span>Dark</span>
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="teal" aria-label="Teal Theme" className="flex flex-col items-center gap-1 p-3">
+                    <Palette className="h-5 w-5 text-teal-500" />
+                    <span>Teal</span>
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="orange" aria-label="Orange Theme" className="flex flex-col items-center gap-1 p-3">
+                    <Palette className="h-5 w-5 text-orange-500" />
+                    <span>Orange</span>
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
+              
+              <div className="rounded-lg border p-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Theme Preview</Label>
+                    <p className="text-sm text-muted-foreground">
+                      See how your selected theme affects the application's appearance.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                  <div className="rounded-md bg-background p-4 border">
+                    <div className="space-y-2">
+                      <div className="h-2 w-[80%] rounded-lg bg-primary"></div>
+                      <div className="h-2 w-[60%] rounded-lg bg-muted"></div>
+                    </div>
+                  </div>
+                  <div className="rounded-md bg-card p-4 border">
+                    <div className="space-y-2">
+                      <div className="h-2 w-[80%] rounded-lg bg-primary"></div>
+                      <div className="h-2 w-[60%] rounded-lg bg-muted"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            
+            <CardFooter>
+              <Button 
+                onClick={() => toast.success(`Theme changed to ${theme} mode`)}
+                className="bg-melophile-600 hover:bg-melophile-700"
+              >
+                Apply Theme
+              </Button>
+            </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>

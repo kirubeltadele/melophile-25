@@ -210,13 +210,13 @@ const HealthChat = () => {
               <Button 
                 key={index}
                 variant="outline" 
-                className="w-full justify-start text-left h-auto py-2"
+                className="w-full justify-start text-left h-auto py-2 px-3 whitespace-normal"
                 onClick={() => handleSendMessage(suggestion)}
                 disabled={isTyping}
               >
-                <div className="flex items-center">
-                  <MessageCircle className="h-4 w-4 mr-2 text-melophile-600" />
-                  <span className="truncate">{suggestion}</span>
+                <div className="flex items-start">
+                  <MessageCircle className="h-4 w-4 mr-2 shrink-0 mt-1 text-melophile-600" />
+                  <span className="line-clamp-2">{suggestion}</span>
                 </div>
               </Button>
             ))}

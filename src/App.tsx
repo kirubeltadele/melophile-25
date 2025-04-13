@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/components/auth/AuthContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 // Layouts
 import AppLayout from "@/components/layout/AppLayout";
@@ -51,47 +52,49 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <TooltipProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+        <ThemeProvider>
+          <TooltipProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-              <Route path="/" element={
-                <AppLayout 
-                  logo="/melophile-logo.png"
-                  icon="/melophile-icon.ico"
-                />
-              }>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/analytics" element={<Analytics />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/reminders" element={<Reminders />} />
-                <Route path="/medications" element={<MyMedications />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/appointments" element={<Appointments />} />
-                <Route path="/patients" element={<Patients />} />
-                <Route path="/inventory" element={<Inventory />} />
-                <Route path="/telemedicine" element={<Telemedicine />} />
-                <Route path="/blood-inventory" element={<BloodInventory />} />
-                <Route path="/about-consultant" element={<AboutConsultant />} />
-                <Route path="/write-blog" element={<WriteBlog />} />
-                <Route path="/health-tips" element={<HealthTips />} />
-                <Route path="/health-chat" element={<HealthChat />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/blog/:id" element={<BlogDetail />} />
-                <Route path="/home-nursing" element={<HomeNursing />} />
-              </Route>
+                <Route path="/" element={
+                  <AppLayout 
+                    logo="/melophile-logo.png"
+                    icon="/melophile-icon.ico"
+                  />
+                }>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/analytics" element={<Analytics />} />
+                  <Route path="/search" element={<Search />} />
+                  <Route path="/reminders" element={<Reminders />} />
+                  <Route path="/medications" element={<MyMedications />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/appointments" element={<Appointments />} />
+                  <Route path="/patients" element={<Patients />} />
+                  <Route path="/inventory" element={<Inventory />} />
+                  <Route path="/telemedicine" element={<Telemedicine />} />
+                  <Route path="/blood-inventory" element={<BloodInventory />} />
+                  <Route path="/about-consultant" element={<AboutConsultant />} />
+                  <Route path="/write-blog" element={<WriteBlog />} />
+                  <Route path="/health-tips" element={<HealthTips />} />
+                  <Route path="/health-chat" element={<HealthChat />} />
+                  <Route path="/notifications" element={<Notifications />} />
+                  <Route path="/blog/:id" element={<BlogDetail />} />
+                  <Route path="/home-nursing" element={<HomeNursing />} />
+                </Route>
 
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate to="/404" replace />} />
-            </Routes>
-            <Toaster />
-          </BrowserRouter>
-        </TooltipProvider>
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
+              </Routes>
+              <Toaster />
+            </BrowserRouter>
+          </TooltipProvider>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
