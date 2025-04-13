@@ -32,6 +32,7 @@ import HealthTips from "@/pages/HealthTips";
 import HealthChat from "@/pages/HealthChat";
 import Notifications from "@/pages/Notifications";
 import BlogDetail from "@/pages/BlogDetail";
+import HomeNursing from "@/pages/HomeNursing";
 
 // Styles
 import "./App.css";
@@ -82,6 +83,7 @@ function App() {
                 <Route path="/health-chat" element={<HealthChat />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/blog/:id" element={<BlogDetail />} />
+                <Route path="/home-nursing" element={<HomeNursing />} />
               </Route>
 
               <Route path="/404" element={<NotFound />} />
