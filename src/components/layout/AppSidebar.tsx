@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -25,7 +24,8 @@ import {
   BarChart,
   ShoppingCart,
   FileText,
-  Edit
+  Edit,
+  Home as HomeNursing
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -58,7 +58,6 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
     };
   }, [isMobileMenuOpen, setIsMobileMenuOpen]);
 
-  // Different navigation items for different user roles
   const getNavItems = () => {
     const commonItems = [
       { icon: Home, label: "Dashboard", to: "/dashboard" },
@@ -75,6 +74,7 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
         { icon: Heart, label: "Health Tips", to: "/health-tips" },
         { icon: MessageCircle, label: "Health Chat", to: "/health-chat" },
         { icon: Video, label: "Telemedicine", to: "/telemedicine" },
+        { icon: HomeNursing, label: "Home Nursing", to: "/home-nursing" },
       ];
     } else if (user?.role === "pharmacy") {
       return [
