@@ -1,7 +1,7 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, Calendar, Heart, Pill } from "lucide-react";
-import { HomeNursingSection } from "@/components/features/HomeNursingSection";
 
 const stats = [
   {
@@ -63,12 +63,7 @@ const IndividualDashboard = () => {
         ))}
       </div>
       
-      {/* Activity tracker and other sections would go here */}
-      
-      {/* Home Nursing Section */}
-      <section className="mt-8">
-        <HomeNursingSection />
-      </section>
+      {/* Removed HomeNursingSection */}
     </div>
   );
 };

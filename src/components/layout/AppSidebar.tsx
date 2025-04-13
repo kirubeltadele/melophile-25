@@ -24,7 +24,8 @@ import {
   BarChart,
   ShoppingCart,
   FileText,
-  Edit
+  Edit,
+  Briefcase
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -73,6 +74,7 @@ const AppSidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen, logo, icon }: AppSi
         { icon: Heart, label: "Health Tips", to: "/health-tips" },
         { icon: MessageCircle, label: "Health Chat", to: "/health-chat" },
         { icon: Video, label: "Telemedicine", to: "/telemedicine" },
+        { icon: Briefcase, label: "Home Nursing", to: "/home-nursing" },
       ];
     } else if (user?.role === "pharmacy") {
       return [
