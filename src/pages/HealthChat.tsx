@@ -11,14 +11,17 @@ import {
 import { MessageCircle, Send, Clock, ChevronRight } from "lucide-react";
 
 // Mock data for chat suggestions
-const chatSuggestions = [
-  "I've been experiencing headaches for the past week. What could be causing this?",
-  "What are the side effects of Metformin?",
-  "How can I manage my diabetes better?",
-  "What foods should I avoid with high blood pressure?",
-  "I forgot to take my medication this morning. What should I do?",
-  "How often should I check my blood pressure?",
-];
+<div className="flex flex-wrap gap-2 overflow-x-auto max-w-full py-2">
+  {chatSuggestions.map((question, index) => (
+    <button
+      key={index}
+      onClick={() => handleSendMessage(question)}
+      className="bg-gray-200 text-sm px-4 py-2 rounded-lg whitespace-nowrap hover:bg-gray-300 transition"
+    >
+      {question}
+    </button>
+  ))}
+</div>
 
 // Mock bot responses
 const botResponses: Record<string, string> = {
